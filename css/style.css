@@ -1,0 +1,16 @@
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+main {
+    flex-grow: 1;
+}
+
+.logoCine {
+    width: 80px;
+    height:50px;
+    border-radius: 80px;
+}
