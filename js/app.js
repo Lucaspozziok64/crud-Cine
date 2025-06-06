@@ -7,6 +7,7 @@ const crearPelicula = () => {
   peliculasCreadas.push(nuevaPelicula)
   guardarLocalStorage()
   limpiarFormulario()
+  creandoPelicula = true
 }
 
 const guardarLocalStorage = () => {
@@ -50,13 +51,33 @@ window.eliminarPelicula = (id) => {
   guardarLocalStorage()
 }
 
-window.prepararPelicula = () => {
+window.prepararPelicula = (id) => {
   console.log('Aqui deberia abrir el modal con los valores del campo');
   abirModal()
+  const datosPelicula = peliculasCreadas.find((producto)=> producto.id === id);
+  inputNombre.value = datosPelicula.nombre;
+  inputGenero.value = datosPelicula.genero;
+  inputAnio.value = datosPelicula.anio; 
+  inputImagen.value = datosPelicula.imagen;
+
+  idPeliculaEditar = id
+  creandoPelicula = false  
 }
 
 const abirModal = () => {
   modalPelicula.show()
+}
+
+const editarPelicula = () => {
+
+  const posicionPelicula = peliculasCreadas.findIndex((pelicula)=> pelicula.id === idPeliculaEditar)
+  peliculasCreadas[posicionPelicula].nombre = inputNombre.value;
+  peliculasCreadas[posicionPelicula].genero = inputGenero.value;
+  peliculasCreadas[posicionPelicula].anio = inputAnio.value;
+  peliculasCreadas[posicionPelicula].imagen = inputImagen.value;
+
+  guardarLocalStorage()
+  limpiarFormulario()
 }
 
 //Variables
@@ -69,12 +90,18 @@ const peliculasCreadas = JSON.parse(localStorage.getItem('agendaPeliculas')) || 
 const tablaPeliculas = document.querySelector('tbody');
 const modalPelicula = new bootstrap.Modal(document.getElementById('modalPelicula'))
 const btnAgregar = document.querySelector('.btn-success');
+let creandoPelicula = true;
+let idPeliculaEditar = null;
 
 //Manejadores de eventos
 btnAgregar.addEventListener('click', abirModal)
 formularioPelicula.addEventListener("submit", (e) => {
   e.preventDefault();
-  crearPelicula()
+  if(creandoPelicula) {
+    creandoPelicula()
+  } else {
+    editarPelicula()
+  }
 });
 
 cargarDatosTabla()
