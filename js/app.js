@@ -27,7 +27,7 @@ const mostrarPeliculaTabla = (pelicula, indice) => {
               <td>${pelicula.genero}</td>
               <td>${pelicula.anio}</td>
               <td>
-                <button class="btn btn-warning mx-1">Editar</button
+                <button class="btn btn-warning mx-1" onClick="prepararPelicula('${pelicula.id}')">Editar</button
                 ><button class="btn btn-danger mx-1" onClick="eliminarPelicula('${pelicula.id}')">Eliminar</button
                 ><button class="btn btn-primary mx-1">Ver</button>
               </td>
@@ -50,6 +50,15 @@ window.eliminarPelicula = (id) => {
   guardarLocalStorage()
 }
 
+window.prepararPelicula = () => {
+  console.log('Aqui deberia abrir el modal con los valores del campo');
+  abirModal()
+}
+
+const abirModal = () => {
+  modalPelicula.show()
+}
+
 //Variables
 const formularioPelicula = document.getElementById("formularioPelicula");
 const inputNombre = document.querySelector('#inputNombre');
@@ -58,8 +67,11 @@ const inputAnio = document.querySelector('#inputAño');
 const inputImagen = document.querySelector('#inputImagen');
 const peliculasCreadas = JSON.parse(localStorage.getItem('agendaPeliculas')) || [];
 const tablaPeliculas = document.querySelector('tbody');
+const modalPelicula = new bootstrap.Modal(document.getElementById('modalPelicula'))
+const btnAgregar = document.querySelector('.btn-success');
 
 //Manejadores de eventos
+btnAgregar.addEventListener('click', abirModal)
 formularioPelicula.addEventListener("submit", (e) => {
   e.preventDefault();
   crearPelicula()
