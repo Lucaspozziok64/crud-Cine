@@ -2,7 +2,7 @@ import Pelicula from "./classPelicula.js";
 //Funciones
 const crearPelicula = () => {
 
-  const nuevaPelicula = new Pelicula(inputNombre.value, inputGenero.value, inputAnio.value);
+  const nuevaPelicula = new Pelicula(inputNombre.value, inputGenero.value, inputAnio.value, inputImagen.value);
   console.log(nuevaPelicula)
   peliculasCreadas.push(nuevaPelicula)
   guardarLocalStorage()
@@ -28,7 +28,7 @@ const mostrarPeliculaTabla = (pelicula, indice) => {
               <td>${pelicula.anio}</td>
               <td>
                 <button class="btn btn-warning mx-1">Editar</button
-                ><button class="btn btn-danger mx-1">Eliminar</button
+                ><button class="btn btn-danger mx-1" onClick="eliminarPelicula('${pelicula.id}')">Eliminar</button
                 ><button class="btn btn-primary mx-1">Ver</button>
               </td>
             </tr>`
@@ -40,11 +40,22 @@ const cargarDatosTabla = () => {
   }
 }
 
+window.eliminarPelicula = (id) => {
+  console.log('Aqui deberia elimiinar pelicula por ID');
+  const peliculaBuscada = peliculasCreadas.findIndex(
+      (pelicula) => pelicula.id === id
+    );
+  peliculasCreadas.splice(peliculaBuscada, 1)
+  console.log('Aqui deberia eliminar la pelicula del localstorage')
+  guardarLocalStorage()
+}
+
 //Variables
 const formularioPelicula = document.getElementById("formularioPelicula");
 const inputNombre = document.querySelector('#inputNombre');
 const inputGenero = document.querySelector('#inputGenero');
 const inputAnio = document.querySelector('#inputAño');
+const inputImagen = document.querySelector('#inputImagen');
 const peliculasCreadas = JSON.parse(localStorage.getItem('agendaPeliculas')) || [];
 const tablaPeliculas = document.querySelector('tbody');
 

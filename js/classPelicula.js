@@ -5,7 +5,7 @@ export default class Pelicula {
   #anio;
   #imagen;
   constructor(nombre, genero, anio, imagen) {
-    this.#id = crypto.randomUUID;
+    this.#id = crypto.randomUUID();
     this.#nombre = nombre;
     this.#genero = genero;
     this.#anio = anio;
@@ -54,11 +54,11 @@ export default class Pelicula {
   //METODO PARA STRINGIFY
   toJSON() {
     return {
-      id: this.#id,
-      nombre: this.#nombre,
-      genero: this.#genero,
+      id: this.id,
+      nombre: this.nombre,
+      genero: this.genero,
       anio: this.anio,
-      imagen: this.#imagen
+      imagen: this.imagen
     };
   }
 }
