@@ -29,5 +29,8 @@ main {
         height: 30px;
         margin-top: 8px;
         text-align: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
 }
