@@ -1,4 +1,4 @@
-class Pelicula {
+export default class Pelicula {
   #id;
   #nombre;
   #genero;
@@ -31,5 +31,34 @@ class Pelicula {
 
   get imagen() {
     return this.#imagen;
+  }
+
+  //METODOS SETTERS
+
+  set nombre(nuevoNombre) {
+    this.#nombre = nuevoNombre;
+  }
+
+  set genero(nuevoGenero) {
+    this.#genero = nuevoGenero;
+  }
+
+  set anio(nuevoAnio) {
+    this.#anio = nuevoAnio;
+  }
+
+  set imagen(nuevoImagen) {
+    this.#imagen = nuevoImagen;
+  }
+
+  //METODO PARA STRINGIFY
+  toJSON() {
+    return {
+      id: this.#id,
+      nombre: this.#nombre,
+      genero: this.#genero,
+      anio: this.anio,
+      imagen: this.#imagen
+    };
   }
 }
