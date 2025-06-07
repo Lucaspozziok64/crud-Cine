@@ -25,7 +25,11 @@ main {
     justify-content: center;
     align-items: center;
     margin-top: 10px;
-    color: rgb(202, 85, 85);
+    color: rgb(255, 0, 0);
+}
+
+.imagenPelicula {
+    height: 400px;
 }
 
 
@@ -42,5 +46,11 @@ main {
         display: flex;
         justify-content: center;
         align-items: center;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 1366px) {
+    .contenedorBotonAgregar {
+        margin-top: 110px !important;
     }
 }
