@@ -29,6 +29,7 @@ const crearPelicula = () => {
     title: "Pelicula Agregada",
   });
   cerrarModal();
+  actualizarTabla()
 };
 
 const guardarLocalStorage = () => {
@@ -91,6 +92,7 @@ window.eliminarPelicula = (id) => {
         peliculasCreadas.splice(peliculaBuscada, 1);
         console.log("Aqui deberia eliminar la pelicula del localstorage");
         guardarLocalStorage();
+        actualizarTabla()
         swalWithBootstrapButtons.fire({
           title: "Elimanado!",
           text: "La pelicula ha sido eliminada exitosamente",
@@ -157,6 +159,7 @@ const editarPelicula = () => {
         guardarLocalStorage();
         limpiarFormulario();
         cerrarModal();
+        actualizarTabla()
 
         const Toast = Swal.mixin({
           toast: true,
@@ -173,15 +176,6 @@ const editarPelicula = () => {
           icon: "success",
           title: "Pelicula Editada",
         });
-      } else if (
-        /* Read more about handling dismissals below */
-        result.dismiss === Swal.DismissReason.cancel
-      ) {
-        swalWithBootstrapButtons.fire({
-          title: "Cancelaste",
-          text: "La pelicula mantiene sus datos:)",
-          icon: "error",
-        });
       }
     });
 };
@@ -189,6 +183,12 @@ const editarPelicula = () => {
 const cerrarModal = () => {
   modalPelicula.hide();
 };
+
+const actualizarTabla = () => {
+
+  tablaPeliculas.innerHTML = "";
+  peliculasCreadas.forEach((pelicula, indice)=> { mostrarPeliculaTabla(pelicula, indice + 1)})
+}
 
 //Variables
 const formularioPelicula = document.getElementById("formularioPelicula");
