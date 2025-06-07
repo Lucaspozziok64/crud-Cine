@@ -19,6 +19,16 @@ main {
     border-radius: 80px;
 }
 
+.botonVolver {
+    border-radius: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+    color: rgb(202, 85, 85);
+}
+
+
 @media (max-width: 767px) {
     .contenedorBotonAgregar {
         margin-top: 70px !important;
