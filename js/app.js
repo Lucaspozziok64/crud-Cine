@@ -1,25 +1,46 @@
 import Pelicula from "./classPelicula.js";
 //Funciones
 const crearPelicula = () => {
+  const nuevaPelicula = new Pelicula(
+    inputNombre.value,
+    inputGenero.value,
+    inputAnio.value,
+    inputImagen.value
+  );
+  console.log(nuevaPelicula);
+  peliculasCreadas.push(nuevaPelicula);
+  guardarLocalStorage();
+  limpiarFormulario();
+  creandoPelicula = true;
 
-  const nuevaPelicula = new Pelicula(inputNombre.value, inputGenero.value, inputAnio.value, inputImagen.value);
-  console.log(nuevaPelicula)
-  peliculasCreadas.push(nuevaPelicula)
-  guardarLocalStorage()
-  limpiarFormulario()
-  creandoPelicula = true
-}
+  const Toast = Swal.mixin({
+    toast: true,
+    position: "top-end",
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+      toast.onmouseenter = Swal.stopTimer;
+      toast.onmouseleave = Swal.resumeTimer;
+    },
+  });
+  Toast.fire({
+    icon: "success",
+    title: "Pelicula Agregada",
+  });
+  cerrarModal();
+};
 
 const guardarLocalStorage = () => {
-  localStorage.setItem('agendaPeliculas', JSON.stringify(peliculasCreadas));
-}
+  localStorage.setItem("agendaPeliculas", JSON.stringify(peliculasCreadas));
+};
 
 const limpiarFormulario = () => {
-  formularioPelicula.reset()
-}
+  formularioPelicula.reset();
+};
 
 const mostrarPeliculaTabla = (pelicula, indice) => {
-  console.log('Aqui deberia agregar lgica para mostrar la pelicula creada')
+  console.log("Aqui deberia agregar lgica para mostrar la pelicula creada");
 
   console.log(tablaPeliculas);
   tablaPeliculas.innerHTML += `<tr>
@@ -32,76 +53,169 @@ const mostrarPeliculaTabla = (pelicula, indice) => {
                 ><button class="btn btn-danger mx-1" onClick="eliminarPelicula('${pelicula.id}')">Eliminar</button
                 ><button class="btn btn-primary mx-1">Ver</button>
               </td>
-            </tr>`
-}
+            </tr>`;
+};
 
 const cargarDatosTabla = () => {
-  if(peliculasCreadas.lenght !== 0) {
-    peliculasCreadas.map((pelicula, indice)=> mostrarPeliculaTabla(pelicula, indice + 1));
+  if (peliculasCreadas.lenght !== 0) {
+    peliculasCreadas.map((pelicula, indice) =>
+      mostrarPeliculaTabla(pelicula, indice + 1)
+    );
   }
-}
+};
 
 window.eliminarPelicula = (id) => {
-  console.log('Aqui deberia elimiinar pelicula por ID');
-  const peliculaBuscada = peliculasCreadas.findIndex(
-      (pelicula) => pelicula.id === id
-    );
-  peliculasCreadas.splice(peliculaBuscada, 1)
-  console.log('Aqui deberia eliminar la pelicula del localstorage')
-  guardarLocalStorage()
-}
+  const swalWithBootstrapButtons = Swal.mixin({
+    customClass: {
+      confirmButton: "btn btn-success",
+      cancelButton: "btn btn-danger",
+    },
+    buttonsStyling: false,
+  });
+  swalWithBootstrapButtons
+    .fire({
+      title: "Estas seguro de eliminar esta pelicula?",
+      text: "¡No podrás revertir esto!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Si, Eliminar!",
+      cancelButtonText: "No, cancelar!",
+      reverseButtons: true,
+    })
+    .then((result) => {
+      if (result.isConfirmed) {
+        console.log("Aqui deberia elimiinar pelicula por ID");
+        const peliculaBuscada = peliculasCreadas.findIndex(
+          (pelicula) => pelicula.id === id
+        );
+        peliculasCreadas.splice(peliculaBuscada, 1);
+        console.log("Aqui deberia eliminar la pelicula del localstorage");
+        guardarLocalStorage();
+        swalWithBootstrapButtons.fire({
+          title: "Elimanado!",
+          text: "La pelicula ha sido eliminada exitosamente",
+          icon: "success",
+        });
+      } else if (
+        /* Read more about handling dismissals below */
+        result.dismiss === Swal.DismissReason.cancel
+      ) {
+        swalWithBootstrapButtons.fire({
+          title: "Cancelaste",
+          text: "La pelicula sigue estando disponible :)",
+          icon: "error",
+        });
+      }
+    });
+};
 
 window.prepararPelicula = (id) => {
-  console.log('Aqui deberia abrir el modal con los valores del campo');
-  abirModal()
-  const datosPelicula = peliculasCreadas.find((producto)=> producto.id === id);
+  console.log("Aqui deberia abrir el modal con los valores del campo");
+  abirModal();
+  const datosPelicula = peliculasCreadas.find((producto) => producto.id === id);
   inputNombre.value = datosPelicula.nombre;
   inputGenero.value = datosPelicula.genero;
-  inputAnio.value = datosPelicula.anio; 
+  inputAnio.value = datosPelicula.anio;
   inputImagen.value = datosPelicula.imagen;
 
-  idPeliculaEditar = id
-  creandoPelicula = false  
-}
+  idPeliculaEditar = id;
+  creandoPelicula = false;
+};
 
 const abirModal = () => {
-  modalPelicula.show()
-}
+  modalPelicula.show();
+};
 
 const editarPelicula = () => {
+  const swalWithBootstrapButtons = Swal.mixin({
+    customClass: {
+      confirmButton: "btn btn-success",
+      cancelButton: "btn btn-danger",
+    },
+    buttonsStyling: false,
+  });
+  swalWithBootstrapButtons
+    .fire({
+      title: "Estas seguro de editar esta pelicula?",
+      text: "¡No podrás revertir esto!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Si, editar!",
+      cancelButtonText: "No, cancelar!",
+      reverseButtons: true,
+    })
+    .then((result) => {
+      if (result.isConfirmed) {
+        const posicionPelicula = peliculasCreadas.findIndex(
+          (pelicula) => pelicula.id === idPeliculaEditar
+        );
+        peliculasCreadas[posicionPelicula].nombre = inputNombre.value;
+        peliculasCreadas[posicionPelicula].genero = inputGenero.value;
+        peliculasCreadas[posicionPelicula].anio = inputAnio.value;
+        peliculasCreadas[posicionPelicula].imagen = inputImagen.value;
 
-  const posicionPelicula = peliculasCreadas.findIndex((pelicula)=> pelicula.id === idPeliculaEditar)
-  peliculasCreadas[posicionPelicula].nombre = inputNombre.value;
-  peliculasCreadas[posicionPelicula].genero = inputGenero.value;
-  peliculasCreadas[posicionPelicula].anio = inputAnio.value;
-  peliculasCreadas[posicionPelicula].imagen = inputImagen.value;
+        guardarLocalStorage();
+        limpiarFormulario();
+        cerrarModal();
 
-  guardarLocalStorage()
-  limpiarFormulario()
-}
+        const Toast = Swal.mixin({
+          toast: true,
+          position: "top-end",
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.onmouseenter = Swal.stopTimer;
+            toast.onmouseleave = Swal.resumeTimer;
+          },
+        });
+        Toast.fire({
+          icon: "success",
+          title: "Pelicula Editada",
+        });
+      } else if (
+        /* Read more about handling dismissals below */
+        result.dismiss === Swal.DismissReason.cancel
+      ) {
+        swalWithBootstrapButtons.fire({
+          title: "Cancelaste",
+          text: "La pelicula mantiene sus datos:)",
+          icon: "error",
+        });
+      }
+    });
+};
+
+const cerrarModal = () => {
+  modalPelicula.hide();
+};
 
 //Variables
 const formularioPelicula = document.getElementById("formularioPelicula");
-const inputNombre = document.querySelector('#inputNombre');
-const inputGenero = document.querySelector('#inputGenero');
-const inputAnio = document.querySelector('#inputAño');
-const inputImagen = document.querySelector('#inputImagen');
-const peliculasCreadas = JSON.parse(localStorage.getItem('agendaPeliculas')) || [];
-const tablaPeliculas = document.querySelector('tbody');
-const modalPelicula = new bootstrap.Modal(document.getElementById('modalPelicula'))
-const btnAgregar = document.querySelector('.btn-success');
+const inputNombre = document.querySelector("#inputNombre");
+const inputGenero = document.querySelector("#inputGenero");
+const inputAnio = document.querySelector("#inputAño");
+const inputImagen = document.querySelector("#inputImagen");
+const peliculasCreadas =
+  JSON.parse(localStorage.getItem("agendaPeliculas")) || [];
+const tablaPeliculas = document.querySelector("tbody");
+const modalPelicula = new bootstrap.Modal(
+  document.getElementById("modalPelicula")
+);
+const btnAgregar = document.querySelector(".btn-success");
 let creandoPelicula = true;
 let idPeliculaEditar = null;
 
 //Manejadores de eventos
-btnAgregar.addEventListener('click', abirModal)
+btnAgregar.addEventListener("click", abirModal);
 formularioPelicula.addEventListener("submit", (e) => {
   e.preventDefault();
-  if(creandoPelicula) {
-    creandoPelicula()
+  if (creandoPelicula) {
+    crearPelicula();
+    cerrarModal();
   } else {
-    editarPelicula()
+    editarPelicula();
   }
 });
 
-cargarDatosTabla()
+cargarDatosTabla();
