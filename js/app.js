@@ -52,7 +52,7 @@ const mostrarPeliculaTabla = (pelicula, indice) => {
               <td>
                 <button class="btn btn-warning mx-1" onClick="prepararPelicula('${pelicula.id}')">Editar</button
                 ><button class="btn btn-danger mx-1" onClick="eliminarPelicula('${pelicula.id}')">Eliminar</button
-                ><button class="btn btn-primary mx-1">Ver</button>
+                ><button class="btn btn-primary mx-1" onClick="verPelicula('${pelicula.id}')">Ver</button>
               </td>
             </tr>`;
 };
@@ -188,6 +188,11 @@ const actualizarTabla = () => {
 
   tablaPeliculas.innerHTML = "";
   peliculasCreadas.forEach((pelicula, indice)=> { mostrarPeliculaTabla(pelicula, indice + 1)})
+}
+
+window.verPelicula = (id) => {
+  console.log('Estoy invocando la funcion ver Pelicula')
+  window.location.href = './pages/detallePelicula.html?cod=' + id;
 }
 
 //Variables
