@@ -7,13 +7,16 @@ const botonReproducir = () => {
   text: "Gracias por tu visita!",
   icon: "warning"
 });
+
+const btnDesabilitarBoton = document.querySelector('.btnReproducir');
+btnDesabilitarBoton.classList.add('disabled')
 }
 
 const peliculasCreadas = JSON.parse(localStorage.getItem("agendaPeliculas"));
 const peliculaBuscada = peliculasCreadas.find((pelicula) => pelicula.id === id);
 const card = document.querySelector(".card");
 const formBuscar = document.querySelector("form");
-const btnReproducir = document.querySelector('.btn-tertiary');
+const btnReproducir = document.querySelector('.btnReproducir');
 
 formBuscar.addEventListener("submit", (e) => {
   e.preventDefault();
@@ -28,7 +31,7 @@ if (peliculaBuscada.imagen === "") {
     <p class="text-danger text-center">Si quieres ver la imagen de tu pelicula vuelve al <strong>inicio</strong>, <strong>edita</strong> y <strong>carga</strong> una imagen valida</p>
   </div>
           <div class="card-body">
-            <button class="btn btn-tertiary d-flex justify-content-center w-100 bg-success" onClick="botonReproducir()"><i class="bi bi-skip-start-circle fs-1"></i></button>
+            <button class="btn btn-success d-flex justify-content-center w-100 btnReproducir" onClick="botonReproducir()"><i class="bi bi-skip-start-circle fs-1"></i></button>
             <ul>
               <li>Nombre: <strong>${peliculaBuscada.nombre}🎥</strong></li>
               <li>Genero: <strong>${peliculaBuscada.genero}</strong></li>
@@ -42,7 +45,7 @@ if (peliculaBuscada.imagen === "") {
 } else {
   card.innerHTML = `<img src="${peliculaBuscada.imagen}" class="imagenPelicula" alt="imagen de pelicula ${peliculaBuscada.nombre}" />
           <div class="card-body">
-            <button class="btn btn-tertiary d-flex justify-content-center w-100 bg-success" onClick="botonReproducir()"><i class="bi bi-skip-start-circle fs-1"></i></button>
+            <button class="btn d-flex justify-content-center w-100 bg-success btnReproducir" onClick="botonReproducir()"><i class="bi bi-skip-start-circle fs-1"></i></button>
             <ul>
               <li>Nombre: <strong>${peliculaBuscada.nombre}🎥</strong></li>
               <li>Genero: <strong>${peliculaBuscada.genero}</strong></li>
