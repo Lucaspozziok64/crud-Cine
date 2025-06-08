@@ -3,10 +3,6 @@ body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-    background-image: url('../img/desktop-wallpaper-best-5-cinema-powerpoint-backgrounds-on-hip-cine.jpg');
-    background-repeat: no-repeat;
-    object-fit: cover;
-    background-size: cover;
 }
 
 main {
@@ -24,7 +20,6 @@ main {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 10px;
     color: rgb(255, 0, 0);
 }
 
@@ -32,24 +27,8 @@ main {
     height: 400px;
 }
 
-@media (max-width: 767px) {
-    .contenedorBotonAgregar {
-        margin-top: 40px !important;
-    }
-
-    .btn {
-        width: 75px;
-        height: 30px;
-        margin-top: 8px;
-        text-align: center;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-}
-
-@media (min-width: 768px) and (max-width: 1000px) {
-    .contenedorBotonAgregar {
-        margin-top: 110px !important;
-    }
+.imagenCarousel {
+    height: 500px;
+    object-fit:initial;
+    object-position: center;
 }

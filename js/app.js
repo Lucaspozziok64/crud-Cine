@@ -1,7 +1,9 @@
 import Pelicula from "./classPelicula.js";
 //Funciones
 const crearPelicula = () => {
-  const nuevaPelicula = new Pelicula(
+
+  if(validaciones) {
+    const nuevaPelicula = new Pelicula(
     inputNombre.value,
     inputGenero.value,
     inputAnio.value,
@@ -29,6 +31,7 @@ const crearPelicula = () => {
   });
   cerrarModal();
   actualizarTabla()
+  }
 };
 
 const guardarLocalStorage = () => {
@@ -186,6 +189,35 @@ const actualizarTabla = () => {
 
 window.verPelicula = (id) => {
   window.location.href = './pages/detallePelicula.html?cod=' + id;
+}
+
+function validarCantidadCaracteres(input, min, max) {
+  if (inputNombre.value.trim().length >= min && input.value.trim().length <= max) {
+    inputNombre.classList.add("is-valid");
+    inputNombre.classList.remove("is-invalid");
+    return true;
+  } else {
+    inputNombre.classList.add("is-invalid");
+    inputNombre.classList.remove("is-valid");
+    return false;
+  }
+}
+
+function validaciones() {
+  let datosValidos = true;
+  if (!validarCantidadCaracteres(inputNombre, 2, 50)) {
+    datosValidos = false;
+  }
+
+  if (!validarCantidadCaracteres(inputApellido, 2, 50)) {
+    datosValidos = false;
+  }
+
+  if(validarEmail()) {
+    datosValidos = false
+  }
+
+  return datosValidos;
 }
 
 //Variables
