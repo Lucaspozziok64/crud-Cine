@@ -4,6 +4,11 @@ const id = parametroURL.get("cod");
 const peliculasCreadas = JSON.parse(localStorage.getItem("agendaPeliculas"));
 const peliculaBuscada = peliculasCreadas.find((pelicula) => pelicula.id === id);
 const card = document.querySelector(".card");
+const formBuscar = document.querySelector('form');
+
+formBuscar.addEventListener('submit', (e)=> {
+  e.preventDefault()
+})
 
 card.innerHTML = `<img src="${peliculaBuscada.imagen}" class="imagenPelicula" alt="imagen de pelicula ${peliculaBuscada.nombre}" />
           <div class="card-body">
