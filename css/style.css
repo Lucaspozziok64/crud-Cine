@@ -33,6 +33,11 @@ main {
     object-position: center;
 }
 
+.logoFooter {
+    width: 130px;
+    border-radius: 30px;
+}
+
 @media (max-width: 767px) {
     .btn {
         width: 75px;
