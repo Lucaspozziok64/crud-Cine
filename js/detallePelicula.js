@@ -23,9 +23,6 @@ formBuscar.addEventListener("submit", (e) => {
 });
 
 if (peliculaBuscada.imagen === "") {
-  console.log(
-    "Aqui deberia agregar el contenedor de la pelicula cons mensjae de que no cargo imagen"
-  );
   card.innerHTML = `<img src="${peliculaBuscada.imagen}" class="imagenPelicula" alt="imagen de pelicula ${peliculaBuscada.nombre}" />
   <div class="overlay-text">
     <p class="text-danger text-center">Si quieres ver la imagen de tu pelicula vuelve al <strong>inicio</strong>, <strong>edita</strong> y <strong>carga</strong> una imagen valida</p>
