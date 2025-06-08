@@ -32,3 +32,15 @@ main {
     object-fit:initial;
     object-position: center;
 }
+
+@media (max-width: 767px) {
+    .btn {
+        width: 75px;
+        height: 30px;
+        margin-top: 8px;
+        text-align: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+}
