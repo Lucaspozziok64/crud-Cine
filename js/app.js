@@ -92,7 +92,7 @@ window.eliminarPelicula = (id) => {
         guardarLocalStorage();
         actualizarTabla()
         swalWithBootstrapButtons.fire({
-          title: "Elimanado!",
+          title: "Eliminado!",
           text: "La pelicula ha sido eliminada exitosamente",
           icon: "success",
         });
