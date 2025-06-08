@@ -32,9 +32,6 @@ main {
     height: 400px;
 }
 
-.contenedorBotonAgregar {
-}
-
 
 @media (max-width: 767px) {
     .contenedorBotonAgregar {
