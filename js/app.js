@@ -7,7 +7,6 @@ const crearPelicula = () => {
     inputAnio.value,
     inputImagen.value
   );
-  console.log(nuevaPelicula);
   peliculasCreadas.push(nuevaPelicula);
   guardarLocalStorage();
   limpiarFormulario();
@@ -41,9 +40,7 @@ const limpiarFormulario = () => {
 };
 
 const mostrarPeliculaTabla = (pelicula, indice) => {
-  console.log("Aqui deberia agregar lgica para mostrar la pelicula creada");
 
-  console.log(tablaPeliculas);
   tablaPeliculas.innerHTML += `<tr>
               <td>${indice}</td>
               <td>${pelicula.nombre}</td>
@@ -85,12 +82,10 @@ window.eliminarPelicula = (id) => {
     })
     .then((result) => {
       if (result.isConfirmed) {
-        console.log("Aqui deberia elimiinar pelicula por ID");
         const peliculaBuscada = peliculasCreadas.findIndex(
           (pelicula) => pelicula.id === id
         );
         peliculasCreadas.splice(peliculaBuscada, 1);
-        console.log("Aqui deberia eliminar la pelicula del localstorage");
         guardarLocalStorage();
         actualizarTabla()
         swalWithBootstrapButtons.fire({
@@ -112,7 +107,6 @@ window.eliminarPelicula = (id) => {
 };
 
 window.prepararPelicula = (id) => {
-  console.log("Aqui deberia abrir el modal con los valores del campo");
   abirModal();
   const datosPelicula = peliculasCreadas.find((producto) => producto.id === id);
   inputNombre.value = datosPelicula.nombre;
@@ -191,7 +185,6 @@ const actualizarTabla = () => {
 }
 
 window.verPelicula = (id) => {
-  console.log('Estoy invocando la funcion ver Pelicula')
   window.location.href = './pages/detallePelicula.html?cod=' + id;
 }
 

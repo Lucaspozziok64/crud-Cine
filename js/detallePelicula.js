@@ -1,13 +1,8 @@
-console.log(window.location);
-
 const parametroURL = new URLSearchParams(window.location.search);
 const id = parametroURL.get("cod");
 
 const peliculasCreadas = JSON.parse(localStorage.getItem("agendaPeliculas"));
-
 const peliculaBuscada = peliculasCreadas.find((pelicula) => pelicula.id === id);
-
-console.log(peliculaBuscada);
 const card = document.querySelector(".card");
 
 card.innerHTML = `<img src="${peliculaBuscada.imagen}" class="imagenPelicula" alt="imagen de pelicula ${peliculaBuscada.nombre}" />
